@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 const { sequelize, Book } = require('./models');
 const port = 3000;
@@ -7,6 +9,14 @@ const port = 3000;
 app.use('/public', express.static('public'));
 
 app.set('view engine', 'pug');
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true }));
+//form-urlencoded
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
   res.redirect('/books');
@@ -18,8 +28,14 @@ app.get('/books', (req, res) => {
   });
 });
 
+app.post('/books/new', (req, res) => {
+  Book.create(req.body).then(book => {
+    res.redirect('/books/' + book.id);
+  });
+});
+
 app.get('/books/new', (req, res) => {
-  res.render('new_book', { title: 'Create New Book' });
+  res.render('new_book', { book: {}, title: 'Create New Book' });
 });
 
 // Handles routing for books by IDs
@@ -31,6 +47,20 @@ app.get('/books/:id', (req, res, next) => {
       next();
     }
   });
+});
+
+/* DELETE individual article. */
+app.delete('/books/:id/delete', (req, res, next) => {
+  Book.findByPk(req.params.id)
+    .then(book => {
+      return book.destroy();
+    })
+    .then(() => {
+      res.redirect('/books');
+    })
+    .catch(err => {
+      next();
+    });
 });
 
 app.get('*', function(req, res, next) {

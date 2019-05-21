@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form
+  form(action="/books/new", method="post")
     p
       label(for='title') Title
       input#title(name='title' type='text')
@@ -17,4 +17,4 @@ block content
     p
       input(type='submit' value='Create New Book')
     p
-      a.button(href='/books/') Cancel
+      a.button(href='/books') Cancel
