@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
 const { sequelize, Book } = require('./models');
-const port = 1337;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const port = 3000;
 
 app.use('/public', express.static('public'));
 
@@ -32,8 +34,42 @@ app.get('/books', (req, res) => {
     .catch(err => next(err));
 });
 
+// Search
+app.get('/books/search', (req, res, next) => {
+  const { search } = req.query;
+
+  Book.findAll({
+    where: {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          author: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          genre: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          year: search
+        }
+      ]
+    }
+  })
+    .then(books => {
+      res.render('index', { books: books, title: 'Books' });
+    })
+    .catch(err => next(err));
+});
+
 // Post new book
-app.post('/books/new', (req, res) => {
+app.post('/books/new', (req, res, next) => {
   Book.create(req.body)
     .then(book => {
       res.redirect('/books/' + book.id);

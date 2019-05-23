@@ -1,6 +1,10 @@
 extends layout
 
 block content
+	form(action="/books/search")
+		input(type='search', name='search', placeholder='Search')
+		input(type='submit', value='Search')
+		a.button.cancel(href='/books') Cancel
 	p
 		a.button(href='/books/new') Create New Book
 	table

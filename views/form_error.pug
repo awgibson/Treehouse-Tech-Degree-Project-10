@@ -1,5 +1,6 @@
 if(errors)
   h2.error Oooops!
   ul.error
-    li Author is required
-    li Book title is required
+    each error in errors
+      li
+        =error.message
