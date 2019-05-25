@@ -1,17 +1,19 @@
 extends layout
 
 block content
+	//- Search form. Type is search so that it outputs a query in the URL
 	form(action="/books/search")
 		input(type='search', name='search', placeholder='Search')
 		input(type='submit', value='Search')
 		a.button.cancel(href='/books') Cancel
+	//- Conditional that checks if there are any search results
+	//- If there are no search results, an error is displayed.
 	if totalResults === 0
 		p.no-results 'Sorry! No results found.....try another search or hit 'Cancel'	
-
+	//- If there are results, the rest of the page is displayed
 	else
 		p
 			a.button(href='/books/new') Create New Book
-
 		table
 			thead
 				tr
@@ -27,7 +29,9 @@ block content
 						td= book.author
 						td= book.genre
 						td= book.year
-					
+
+		//-  Iterates through the total number of pages and creates links
+		//- Pagination only appears on main book list
 		- var page = 1;
 		ul.nav
 			while page < (pages + 1)
