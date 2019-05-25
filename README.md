@@ -1,13 +1,13 @@
-#Treehouse Full Stack Tech Degree Project 10
+# Treehouse Full Stack Tech Degree Project 10
 ---
-##Build a Library Manager
+## Build a Library Manager
 
 You've been tasked with creating an application for your local library to help them manage their collection of books. The librarian has been using a simple SQLite database and has been entering data in manually. The librarian wants a more intuitive way to manage the library's collection of books.
 
 In this project, you'll build a web application that'll include pages to list, add, update, and delete books. You'll be given HTML designs and an existing SQLite database. You'll be required to implement a dynamic website using JavaScript, Node.js, Express, Pug, and the SQL ORM Sequelize.
 
 ------
-###What I've Completed
+### What I've Completed
 I shot for the exceeds expectations requirements.
 
 For the routes, I used DELETE for delete books and PUT for update books instead of POST as shown in the project guidelines.
@@ -19,7 +19,7 @@ There are two databases in my project.
   * dev.db is used in the development environment and contains extra books I added for testing. 
 
 ----
-##Requirements
+## Requirements
 
 * **Setup and Initialize Project**
   * The .gitignore file is in place and the node_modules folder is not stored in the repo.
