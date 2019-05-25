@@ -36,6 +36,7 @@ input[type='submit'] {
 }
 
 a.button:hover,
+a.button.current,
 input[type='submit']:hover {
   background-color: #01b189;
 }
@@ -102,8 +103,25 @@ input[value='Search'] {
 a.button.cancel {
   margin-left: 7px;
 }
+a.button.current {
+  border: 2px solid black;
+}
 input[type='search'] {
   width: 400px;
+}
+
+ul.nav {
+  list-style-type: none;
+}
+
+ul.nav li {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.no-results {
+  margin-top: 80px;
+  font-size: 30px;
 }
 
 .error {

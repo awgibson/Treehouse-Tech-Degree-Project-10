@@ -5,20 +5,34 @@ block content
 		input(type='search', name='search', placeholder='Search')
 		input(type='submit', value='Search')
 		a.button.cancel(href='/books') Cancel
-	p
-		a.button(href='/books/new') Create New Book
-	table
-		thead
-			tr
-				th Title
-				th Author
-				th Genre
-				th Year
-		tbody
-			each book in books
+	if totalResults === 0
+		p.no-results 'Sorry! No results found.....try another search or hit 'Cancel'	
+
+	else
+		p
+			a.button(href='/books/new') Create New Book
+
+		table
+			thead
 				tr
-					td
-						a(href= '/books/' + book.id)= book.title
-					td= book.author
-					td= book.genre
-					td= book.year
+					th Title
+					th Author
+					th Genre
+					th Year
+			tbody
+				each book in books
+					tr
+						td
+							a(href= '/books/' + book.id)= book.title
+						td= book.author
+						td= book.genre
+						td= book.year
+					
+		- var page = 1;
+		ul.nav
+			while page < (pages + 1)
+				li
+					if currentPage === page
+						a.button.current(href='/books?page=' + page)= page++
+					else
+						a.button(href='/books?page=' + page)= page++
